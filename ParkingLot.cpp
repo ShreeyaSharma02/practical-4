@@ -1,7 +1,7 @@
 #include "ParkingLot.h"
 #include <iostream>
 
-ParkingLot::ParkingLot(int maxCapacity) : maxCapacity(maxCapacity) {}
+ParkingLot::ParkingLot(int capacity) : maxCapacity(capacity) {}
 
 ParkingLot::~ParkingLot() {
     for (Vehicle* vehicle : vehicles) {
@@ -11,38 +11,32 @@ ParkingLot::~ParkingLot() {
 
 bool ParkingLot::parkVehicle(Vehicle* vehicle) {
     if (vehicles.size() >= maxCapacity) {
-        std::cout << "The lot is full" << std::endl;
+        std::cout << "Parking lot is full!" << std::endl;
         return false;
     }
     vehicles.push_back(vehicle);
     return true;
 }
 
-bool ParkingLot::unparkVehicle(int id) {
-    for (auto it = vehicles.begin(); it != vehicles.end(); ++it) {
-        if ((*it)->getId() == id) {
-            delete *it;
-            vehicles.erase(it);
-            return true;
-        }
+bool ParkingLot::unparkVehicle(int index) {
+    if (index < 0 || index >= vehicles.size()) {
+        std::cout << "Invalid vehicle index!" << std::endl;
+        return false;
     }
-    std::cout << "Vehicle not in the lot" << std::endl;
-    return false;
+    vehicles.erase(vehicles.begin() + index);
+    return true;
 }
 
 int ParkingLot::getCount() const {
     return vehicles.size();
 }
 
-int ParkingLot::countOverstayingVehicles(int maxParkingDuration) const {
+int ParkingLot::countOverstayingVehicles(int maxParkingDuration) {
     int count = 0;
-    time_t currentTime = std::time(0);
-
-    for (const Vehicle* vehicle : vehicles) {
-        if (difftime(currentTime, vehicle->getParkingTime()) > maxParkingDuration) {
+    for (Vehicle* vehicle : vehicles) {
+        if (vehicle->getParkingTime() > maxParkingDuration) {
             count++;
         }
     }
-
     return count;
 }
