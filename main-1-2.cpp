@@ -1,29 +1,45 @@
+#include <iostream>
 #include "ParkingLot.h"
 #include "Car.h"
 #include "Bus.h"
 #include "Motorbike.h"
-#include <iostream>
 
 int main() {
-    ParkingLot lot(10);
-    int id = 0;
+    ParkingLot parkingLot(10); // Parking lot with a capacity of 10 vehicles
 
+    // Parking vehicles until the lot is full
     for (int i = 0; i < 10; ++i) {
-        if (i < 5) {
-            lot.parkVehicle(new Car(++id));
-        } else if (i < 8) {
-            lot.parkVehicle(new Bus(++id));
-        } else {
-            lot.parkVehicle(new Motorbike(++id));
+        int type, id;
+        std::cout << "Enter vehicle type (1 for Car, 2 for Bus, 3 for Motorbike): ";
+        std::cin >> type;
+        std::cout << "Enter vehicle ID: ";
+        std::cin >> id;
+
+        Vehicle* vehicle = nullptr;
+        switch (type) {
+            case 1:
+                vehicle = new Car(id);
+                break;
+            case 2:
+                vehicle = new Bus(id);
+                break;
+            case 3:
+                vehicle = new Motorbike(id);
+                break;
+            default:
+                std::cout << "Invalid type. Try again.\n";
+                --i; // to allow re-entry for the same vehicle
+                continue;
         }
+        parkingLot.parkVehicle(vehicle);
     }
 
-    std::cout << "All vehicles parked. The parking lot is full." << std::endl;
+    // Unparking a vehicle
+    int idToUnpark;
+    std::cout << "Enter the ID of the vehicle you want to unpark: ";
+    std::cin >> idToUnpark;
 
-    std::cout << "Enter vehicle ID to unpark: ";
-    int unparkId;
-    std::cin >> unparkId;
-    lot.unparkVehicle(unparkId);
+    parkingLot.unparkVehicle(idToUnpark);
 
     return 0;
 }

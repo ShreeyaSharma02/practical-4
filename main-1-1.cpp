@@ -1,31 +1,51 @@
-#include "ParkingLot.h"
+#include <iostream>
+#include <vector>
+#include "Vehicle.h"
 #include "Car.h"
 #include "Bus.h"
 #include "Motorbike.h"
-#include <iostream>
 
 int main() {
-    ParkingLot lot(10);
-    int id = 0;
+    int numVehicles;
+    std::cout << "Enter the number of vehicles: ";
+    std::cin >> numVehicles;
 
-    for (int i = 0; i < 10; ++i) {
-        if (i < 5) {
-            lot.parkVehicle(new Car(++id));
-        } else if (i < 8) {
-            lot.parkVehicle(new Bus(++id));
-        } else {
-            lot.parkVehicle(new Motorbike(++id));
+    std::vector<Vehicle*> parkingLot;
+
+    for (int i = 0; i < numVehicles; ++i) {
+        int type, id;
+        std::cout << "Enter vehicle type (1 for Car, 2 for Bus, 3 for Motorbike): ";
+        std::cin >> type;
+        std::cout << "Enter vehicle ID: ";
+        std::cin >> id;
+
+        switch (type) {
+        case 1:
+            parkingLot.push_back(new Car(id));
+            break;
+        case 2:
+            parkingLot.push_back(new Bus(id));
+            break;
+        case 3:
+            parkingLot.push_back(new Motorbike(id));
+            break;
+        default:
+            std::cout << "Invalid type. Try again.\n";
+            --i; // to allow re-entry for the same vehicle
+            break;
         }
     }
 
-    std::cout << "Total number of vehicles in the parking lot: " << lot.getCount() << std::endl;
+    std::cout << "\nParking durations:\n";
+    for (auto vehicle : parkingLot) {
+        std::cout << "Vehicle ID: " << vehicle->getID() 
+                  << ", Duration (seconds): " << vehicle->getParkingDuration() << "\n";
+    }
 
-    std::cout << "Enter vehicle ID to unpark: ";
-    int unparkId;
-    std::cin >> unparkId;
-    lot.unparkVehicle(unparkId);
-
-    std::cout << "Total number of vehicles in the parking lot after unparking: " << lot.getCount() << std::endl;
+    // Free the allocated memory
+    for (auto vehicle : parkingLot) {
+        delete vehicle;
+    }
 
     return 0;
 }

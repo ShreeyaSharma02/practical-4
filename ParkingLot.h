@@ -6,16 +6,17 @@
 
 class ParkingLot {
 private:
-    int maxCapacity;
+    int capacity;
+    int count;
     std::vector<Vehicle*> vehicles;
 
 public:
     ParkingLot(int maxCapacity);
-    ~ParkingLot();
-    bool parkVehicle(Vehicle* vehicle);
-    bool unparkVehicle(int id);
     int getCount() const;
-    int countOverstayingVehicles(int maxParkingDuration) const;
+    void parkVehicle(Vehicle* vehicle);
+    void unparkVehicle(int id);
+    int countOverstayingVehicles(int maxParkingDuration) const;  // Ensure this line is present
+    ~ParkingLot();
 };
 
-#endif
+#endif // PARKINGLOT_H

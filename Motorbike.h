@@ -6,7 +6,7 @@
 class Motorbike : public Vehicle {
 public:
     Motorbike(int id);
-    int getParkingTime() const; // This should match the signature in the base class if it's overriding
+    int getParkingDuration() const override;
 };
 
-#endif
+#endif // MOTORBIKE_H
