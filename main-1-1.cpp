@@ -31,7 +31,7 @@ int main() {
             break;
         default:
             std::cout << "Invalid type. Try again.\n";
-            --i; // to allow re-entry for the same vehicle
+            --i; 
             break;
         }
     }
@@ -42,7 +42,6 @@ int main() {
                   << ", Duration (seconds): " << vehicle->getParkingDuration() << "\n";
     }
 
-    // Free the allocated memory
     for (auto vehicle : parkingLot) {
         delete vehicle;
     }

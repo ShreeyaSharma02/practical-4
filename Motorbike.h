@@ -9,4 +9,4 @@ public:
     int getParkingDuration() const override;
 };
 
-#endif // MOTORBIKE_H
+#endif

@@ -9,4 +9,4 @@ public:
     int getParkingDuration() const override;
 };
 
-#endif // CAR_H
+#endif

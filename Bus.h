@@ -9,4 +9,4 @@ public:
     int getParkingDuration() const override;
 };
 
-#endif // BUS_H
+#endif

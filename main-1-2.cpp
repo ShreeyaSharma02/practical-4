@@ -5,9 +5,8 @@
 #include "Motorbike.h"
 
 int main() {
-    ParkingLot parkingLot(10); // Parking lot with a capacity of 10 vehicles
+    ParkingLot parkingLot(10);
 
-    // Parking vehicles until the lot is full
     for (int i = 0; i < 10; ++i) {
         int type, id;
         std::cout << "Enter vehicle type (1 for Car, 2 for Bus, 3 for Motorbike): ";
@@ -28,13 +27,12 @@ int main() {
                 break;
             default:
                 std::cout << "Invalid type. Try again.\n";
-                --i; // to allow re-entry for the same vehicle
+                --i; 
                 continue;
         }
         parkingLot.parkVehicle(vehicle);
     }
 
-    // Unparking a vehicle
     int idToUnpark;
     std::cout << "Enter the ID of the vehicle you want to unpark: ";
     std::cin >> idToUnpark;
