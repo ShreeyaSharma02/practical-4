@@ -1,20 +1,18 @@
+// Vehicle.h
 #ifndef VEHICLE_H
 #define VEHICLE_H
 
-#include <string>
 #include <ctime>
 
 class Vehicle {
-protected:
+private:
     int id;
-    std::string type;
-    time_t parkingTime;
+    std::time_t parkingTime;
 
 public:
-    Vehicle(int id, const std::string& type);
+    Vehicle(int id); // Constructor with integer parameter
     int getId() const;
-    std::string getType() const;
-    time_t getParkingTime() const;
+    std::time_t getParkingTime() const;
 };
 
 #endif
